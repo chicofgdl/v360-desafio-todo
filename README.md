@@ -25,7 +25,23 @@ O projeto segue a arquitetura padrão do **Ruby on Rails (MVC)**:
 
 ## Estrutura de pastas
 
-Em breve
+```text
+.
+├── app/        # MVC, views e assets
+├── bin/        # scripts executáveis
+├── config/     # configuração do app e rotas
+├── db/         # migrations e dados locais
+├── lib/        # código de suporte
+├── log/        # logs do ambiente
+├── public/     # arquivos estáticos
+├── script/     # scripts auxiliares
+├── storage/    # Active Storage local
+├── tmp/        # arquivos temporários
+├── vendor/     # dependências vendorizadas
+├── Gemfile
+├── Gemfile.lock
+└── README.md
+```
 
 ## Pré-requisitos
 
