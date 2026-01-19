@@ -8,7 +8,7 @@ class TasksController < ApplicationController
         if @task.save
             redirect_to lists_path, notice: "Tarefa criada com sucesso."
         else
-            redirect_to lists_path, alert: "Erro ao criar a tarefa."
+            render :edit, status: :unprocessable_entity
         end
     end
 

@@ -3,8 +3,9 @@ class ListsController < ApplicationController
     before_action :set_list, only: %i[ show edit update destroy]
 
     def index
-        @lists = current_user.lists.order(created_at: :desc)
+        load_lists
         @list = current_user.lists.build
+        build_task_summary
     end
 
     def show
@@ -20,7 +21,8 @@ class ListsController < ApplicationController
         if @list.save
             redirect_to lists_path, notice: "Lista criada com sucesso."
         else
-            @lists = current_user.lists.order(created_at: :desc)
+            load_lists
+            build_task_summary
             flash.now[:alert] = "Erro ao criar a lista."
             render :index, status: :unprocessable_entity
         end
@@ -51,5 +53,19 @@ class ListsController < ApplicationController
 
     def list_params
         params.require(:list).permit(:title)
+    end
+
+    def load_lists
+        @lists = current_user.lists.includes(:tasks).order(created_at: :desc)
+    end
+
+    def build_task_summary
+        tasks = @lists.flat_map(&:tasks)
+
+        @task_summary = {
+            total: tasks.size,
+            pending: tasks.count { |task| !task.done? },
+            done: tasks.count(&:done?)
+        }
     end
 end
