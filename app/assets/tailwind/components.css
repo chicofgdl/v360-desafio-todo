@@ -109,6 +109,20 @@
     flex: 1;
   }
 
+  .app-navbar__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+  }
+
+  .app-navbar__brand-name {
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
   .app-navbar__logo {
     width: 2rem;
     height: 2rem;
@@ -122,6 +136,7 @@
   .app-navbar__logo svg {
     width: 1.125rem;
     height: 1.125rem;
+    display: block;
   }
 
   .app-navbar__search {
@@ -135,23 +150,35 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.18);
     border: 1px solid rgba(255, 255, 255, 0.28);
+    transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
   }
 
   .app-navbar__search svg {
     width: 1rem;
     height: 1rem;
+    flex-shrink: 0;
+    display: block;
   }
 
   .app-navbar__search input {
     flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     color: #ffffff;
     font-size: 0.8125rem;
+    outline: none;
+    appearance: none;
   }
 
   .app-navbar__search input::placeholder {
     color: rgba(255, 255, 255, 0.75);
+  }
+
+  .app-navbar__search:focus-within {
+    background: rgba(255, 255, 255, 0.26);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
   }
 
   .app-navbar__right {

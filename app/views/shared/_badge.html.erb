@@ -1,0 +1,11 @@
+<%# locals: text:, variant: (:neutral, :blue, :purple, :red, :yellow), class_name: (opcional) %>
+<%
+  variant = (local_assigns[:variant] || :neutral).to_sym
+  variant = :neutral unless %i[neutral blue purple red yellow].include?(variant)
+  classes = ["badge", "badge--#{variant}"]
+  classes << local_assigns[:class_name] if local_assigns[:class_name].present?
+%>
+
+<span class="<%= classes.join(" ") %>">
+  <%= text %>
+</span>
