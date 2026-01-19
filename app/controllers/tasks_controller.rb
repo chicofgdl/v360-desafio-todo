@@ -6,9 +6,9 @@ class TasksController < ApplicationController
     def create
         @task = @list.tasks.build(task_params)
         if @task.save
-            redirect_to lists_path, notice: 'Tarefa criada com sucesso.'
+            redirect_to lists_path, notice: "Tarefa criada com sucesso."
         else
-            redirect_to lists_path, alert: 'Erro ao criar a tarefa.'
+            redirect_to lists_path, alert: "Erro ao criar a tarefa."
         end
     end
 
@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
     def update
         if @task.update(task_params)
-            redirect_to lists_path, notice: 'Tarefa atualizada com sucesso.'
+            redirect_to lists_path, notice: "Tarefa atualizada com sucesso."
         else
             render :edit, status: :unprocessable_entity
         end
@@ -25,7 +25,7 @@ class TasksController < ApplicationController
 
     def destroy
         @task.destroy
-        redirect_to lists_path, notice: 'Tarefa excluída com sucesso.'
+        redirect_to lists_path, notice: "Tarefa excluída com sucesso."
     end
 
     private
