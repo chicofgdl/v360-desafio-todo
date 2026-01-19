@@ -1,0 +1,21 @@
+<%= form_with(model: list) do |form| %>
+    <% if list.errors.any? %>
+        <div>
+            <h2><%= pluralize(list.errors.count, "error") %> impediram o salvamento:</h2>
+            <ul>
+                <% list.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div>
+        <%= form.label :title, "Título" %>
+        <%= form.text_field :title, placeholder: "Ex: Compras do mês" %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
