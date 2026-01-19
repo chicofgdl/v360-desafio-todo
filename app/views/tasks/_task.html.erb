@@ -1,17 +1,32 @@
-<div id="<%= dom_id(task) %>" style="margin-left: 18px; display: flex; align-items: center; gap: 10px;">
-  <%= form_with url: toggle_list_task_path(task.list, task), method: :patch do %>
-    <%= check_box_tag "done", "1", task.done?, onchange: "this.form.requestSubmit()" %>
+<%
+  card_class = "p-3 hover:bg-gray-50 transition"
+  card_class += " opacity-70" if task.done?
+  title_class = task.done? ? "line-through text-gray-500" : "text-gray-900"
+%>
+
+<div id="<%= dom_id(task) %>">
+  <%= render "shared/card", class_name: card_class do %>
+    <div class="flex items-center gap-3">
+      <%= form_with url: toggle_list_task_path(task.list, task), method: :patch do %>
+        <%= check_box_tag "done", "1", task.done?,
+              class: "h-5 w-5 rounded-full border-gray-300 accent-primary",
+              aria: { label: "Marcar tarefa como concluida" },
+              onchange: "this.form.requestSubmit()" %>
+      <% end %>
+
+      <div class="flex-1">
+        <p class="text-sm font-semibold <%= title_class %>"><%= task.title %></p>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <%= link_to "Editar", edit_list_task_path(task.list, task), class: "text-gray-500 hover:text-gray-900" %>
+        <%= button_to "Deletar",
+              list_task_path(task.list, task),
+              method: :delete,
+              data: { turbo_confirm: "Tem certeza?" },
+              form: { class: "inline" },
+              class: "text-red-600 hover:text-red-700" %>
+      </div>
+    </div>
   <% end %>
-
-  <span style="<%= "text-decoration: line-through; opacity: 0.6;" if task.done? %>">
-    <%= task.title %>
-  </span>
-
-  <span style="margin-left: auto; display: flex; gap: 10px;">
-    <%= link_to "Editar", edit_list_task_path(task.list, task) %>
-    <%= button_to "Deletar",
-          list_task_path(task.list, task),
-          method: :delete,
-          data: { turbo_confirm: "Tem certeza?" } %>
-  </span>
 </div>
