@@ -1,0 +1,15 @@
+<%= form_with(model: [list, task]) do |f| %>
+  <% if task.errors.any? %>
+    <ul>
+      <% task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "Nova tarefa" %>
+    <%= f.text_field :title, placeholder: "Ex: Comprar leite" %>
+    <%= f.submit "Adicionar tarefa" %>
+  </div>
+<% end %>
