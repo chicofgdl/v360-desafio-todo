@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
     before_action :set_list
-    before_action :set_task, only: %i[edit update destroy]
+    before_action :set_task, only: %i[edit update destroy toggle]
 
     def create
         @task = @list.tasks.build(task_params)
@@ -28,6 +28,15 @@ class TasksController < ApplicationController
         redirect_to lists_path, notice: "Tarefa excluída com sucesso."
     end
 
+    def toggle
+        @task.update!(done: !@task.done?)
+
+        respond_to do |format|
+            format.turbo_stream
+            format.html { redirect_to lists_path }
+        end
+    end
+
     private
 
     def set_list
@@ -39,6 +48,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-        params.require(:task).permit(:title, :done)
+        params.require(:task).permit(:title)
     end
 end
