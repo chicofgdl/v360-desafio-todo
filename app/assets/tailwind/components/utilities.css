@@ -11,6 +11,85 @@
     color: var(--color-primary-600);
   }
 
+  .filter-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    min-height: 3.25rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .filter-tile--active {
+    border-color: var(--color-primary-500);
+    background: color-mix(in srgb, var(--color-primary-500) 10%, #ffffff);
+    color: var(--color-primary-700);
+  }
+
+  .filter-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    color: var(--color-primary-600);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .filter-tile__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .filter-tile__label {
+    text-align: left;
+  }
+
+  .filter-tile__badge {
+    flex-shrink: 0;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    color: var(--color-text);
+  }
+
+  .sidebar-item:hover {
+    background: var(--color-surface-muted);
+  }
+
+  .sidebar-item--active {
+    border-color: var(--color-primary-500);
+    background: color-mix(in srgb, var(--color-primary-500) 12%, #ffffff);
+    color: var(--color-primary-700);
+  }
+
+  .list-item-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    color: var(--color-primary-600);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
   .icon-button {
     width: 1.75rem;
     height: 1.75rem;
@@ -47,5 +126,18 @@
   .icon-button--danger:hover {
     color: var(--color-primary-600);
     background: color-mix(in srgb, var(--color-primary-500) 10%, transparent);
+  }
+
+  .icon-button--favorite {
+    color: var(--color-primary-500);
+  }
+
+  .icon-button--favorite:hover {
+    color: var(--color-primary-600);
+    background: color-mix(in srgb, var(--color-primary-500) 10%, transparent);
+  }
+
+  .favorite-toggle {
+    color: var(--color-primary-500);
   }
 }

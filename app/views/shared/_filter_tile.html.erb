@@ -1,0 +1,16 @@
+<%# locals: label:, count:, href:, selected: (opcional) %>
+<%
+  selected = local_assigns[:selected]
+  classes = ["filter-tile"]
+  classes << "filter-tile--active" if selected
+%>
+
+<%= link_to href, class: classes.join(" "), aria: { current: (selected ? "page" : nil) } do %>
+  <span class="filter-tile__header">
+    <span class="filter-icon">
+      <%= yield %>
+    </span>
+    <%= render "shared/badge", text: count, variant: :neutral, class_name: "filter-tile__badge" %>
+  </span>
+  <span class="filter-tile__label text-sm font-medium"><%= label %></span>
+<% end %>
