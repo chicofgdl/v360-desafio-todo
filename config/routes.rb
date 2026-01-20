@@ -12,4 +12,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :tasks, only: [] do
+    member do
+      patch :toggle_favorite
+    end
+  end
 end
