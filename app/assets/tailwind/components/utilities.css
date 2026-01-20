@@ -1,0 +1,5 @@
+@layer components {
+  .accent-primary {
+    accent-color: var(--color-primary-500);
+  }
+}

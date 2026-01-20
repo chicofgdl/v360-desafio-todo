@@ -1,3 +1,8 @@
 @import "tailwindcss";
 @import "./theme.css";
-@import "./components.css";
+@import "./components/buttons.css";
+@import "./components/badges.css";
+@import "./components/utilities.css";
+@import "./components/navbar.css";
+@import "./components/menubar.css";
+@import "./components/modals.css";

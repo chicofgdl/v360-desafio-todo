@@ -1,0 +1,38 @@
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--badge-height);
+    min-width: 1.5rem;
+    padding: 0 var(--badge-padding-x);
+    border-radius: 999px;
+    font-size: var(--badge-font-size);
+    font-weight: 600;
+  }
+
+  .badge--neutral {
+    background: var(--badge-neutral-bg);
+    color: var(--badge-neutral-text);
+  }
+
+  .badge--blue {
+    background: var(--badge-blue-bg);
+    color: var(--badge-blue-text);
+  }
+
+  .badge--purple {
+    background: var(--badge-purple-bg);
+    color: var(--badge-purple-text);
+  }
+
+  .badge--red {
+    background: var(--badge-red-bg);
+    color: var(--badge-red-text);
+  }
+
+  .badge--yellow {
+    background: var(--badge-yellow-bg);
+    color: var(--badge-yellow-text);
+  }
+}
