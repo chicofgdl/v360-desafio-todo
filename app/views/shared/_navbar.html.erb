@@ -64,12 +64,17 @@
           </summary>
           <div class="app-menu__content" role="menu">
             <div class="app-menu__label">Adicionar</div>
-            <button class="app-menu__item" type="button" data-action="click->menubar#closeAll click->modal#open" data-modal-id-param="list-modal">Nova lista</button>
+            <button class="app-menu__item"
+                    type="button"
+                    data-action="click->menubar#closeAll click->list-modal#prepareNew click->modal#open"
+                    data-modal-id-param="list-modal">
+              Nova lista
+            </button>
             <button class="app-menu__item <%= "app-menu__item--disabled" unless has_lists %>"
                     type="button"
                     <%= "disabled" unless has_lists %>
                     aria-disabled="<%= (!has_lists).to_s %>"
-                    data-action="click->menubar#closeAll click->modal#open"
+                    data-action="click->menubar#closeAll click->task-modal#prepareNew click->modal#open"
                     data-modal-id-param="task-modal">
               Nova tarefa
             </button>

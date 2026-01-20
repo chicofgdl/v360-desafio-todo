@@ -18,14 +18,71 @@
         <p class="text-sm font-semibold <%= title_class %>"><%= task.title %></p>
       </div>
 
-      <div class="flex items-center gap-2 text-xs">
-        <%= link_to "Editar", edit_list_task_path(task.list, task), class: "text-gray-500 hover:text-gray-900" %>
-        <%= button_to "Deletar",
-              list_task_path(task.list, task),
+      <div class="flex items-center gap-2">
+        <button type="button"
+                class="icon-button"
+                aria-label="Editar tarefa"
+                data-action="click->task-modal#prepareEdit click->modal#open"
+                data-modal-id-param="task-modal"
+                data-task-id="<%= task.id %>"
+                data-task-title="<%= task.title %>"
+                data-task-list-id="<%= task.list_id %>">
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+            <path
+              d="M4 16.5V20h3.5L18 9.5 14.5 6 4 16.5z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M13.5 7l3.5 3.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+        <%= button_to list_task_path(task.list, task),
               method: :delete,
               data: { turbo_confirm: "Tem certeza?" },
               form: { class: "inline" },
-              class: "text-red-600 hover:text-red-700" %>
+              class: "icon-button icon-button--danger",
+              aria: { label: "Deletar tarefa" } do %>
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+            <path
+              d="M3 6h18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M8 6V4h8v2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M6 6l1 14h10l1-14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M10 11v6M14 11v6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        <% end %>
       </div>
     </div>
   <% end %>

@@ -6,14 +6,70 @@
                 <p class="text-xs text-gray-500"><%= pluralize(list.tasks.size, "tarefa") %></p>
             </div>
 
-            <div class="flex items-center gap-2 text-xs">
-                <%= link_to "Editar", edit_list_path(list), class: "text-gray-500 hover:text-gray-900" %>
-                <%= button_to "Deletar",
-                    list_path(list),
+            <div class="flex items-center gap-2">
+                <button type="button"
+                        class="icon-button"
+                        aria-label="Editar lista"
+                        data-action="click->list-modal#prepareEdit click->modal#open"
+                        data-modal-id-param="list-modal"
+                        data-list-id="<%= list.id %>"
+                        data-list-title="<%= list.title %>">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path
+                            d="M4 16.5V20h3.5L18 9.5 14.5 6 4 16.5z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M13.5 7l3.5 3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                </button>
+                <%= button_to list_path(list),
                     method: :delete,
                     data: { turbo_confirm: "Tem certeza?" },
                     form: { class: "inline" },
-                    class: "text-red-600 hover:text-red-700" %>
+                    class: "icon-button icon-button--danger",
+                    aria: { label: "Deletar lista" } do %>
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path
+                            d="M3 6h18"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <path
+                            d="M8 6V4h8v2"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <path
+                            d="M6 6l1 14h10l1-14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M10 11v6M14 11v6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                <% end %>
             </div>
         </div>
 
@@ -25,7 +81,11 @@
                     label: "Adicionar tarefa",
                     variant: :secondary,
                     type: "button",
-                    data: { action: "click->modal#open", modal_id_param: "task-modal" } %>
+                    data: {
+                        action: "click->task-modal#prepareNew click->modal#open",
+                        modal_id_param: "task-modal",
+                        task_list_id: list.id
+                    } %>
             <% end %>
         <% else %>
             <div class="space-y-2">
@@ -38,7 +98,11 @@
                     variant: :tertiary,
                     class_name: "text-xs",
                     type: "button",
-                    data: { action: "click->modal#open", modal_id_param: "task-modal" } %>
+                    data: {
+                        action: "click->task-modal#prepareNew click->modal#open",
+                        modal_id_param: "task-modal",
+                        task_list_id: list.id
+                    } %>
             </div>
         <% end %>
     <% end %>

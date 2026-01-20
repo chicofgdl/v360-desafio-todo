@@ -1,7 +1,7 @@
 <dialog id="list-modal" class="app-modal">
   <div class="app-modal__panel">
     <div class="app-modal__header">
-      <h2>Nova lista</h2>
+      <h2 data-list-modal-target="heading">Nova lista</h2>
       <button type="button"
               class="app-modal__close"
               data-action="click->modal#close"
@@ -11,12 +11,21 @@
       </button>
     </div>
 
-    <%= form_with model: list, url: lists_path do |form| %>
+    <%= form_with model: list,
+          url: lists_path,
+          data: {
+            list_modal_target: "form",
+            create_action: lists_path,
+            update_template: list_path(":id")
+          } do |form| %>
+      <input type="hidden" name="_method" data-list-modal-target="method" disabled>
+
       <div class="app-modal__field">
         <%= form.label :title, "Nome da lista", class: "app-modal__label" %>
         <%= form.text_field :title,
             class: "app-modal__input",
             placeholder: "Ex: Trabalho, Pessoal, Compras...",
+            data: { list_modal_target: "title" },
             required: true %>
       </div>
 
@@ -61,7 +70,11 @@
                 data-modal-id-param="list-modal">
           Cancelar
         </button>
-        <%= render "shared/button", label: "Criar lista", variant: :primary, type: "submit" %>
+        <%= render "shared/button",
+            label: "Criar lista",
+            variant: :primary,
+            type: "submit",
+            data: { list_modal_target: "submit" } %>
       </div>
     <% end %>
   </div>

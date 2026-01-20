@@ -43,7 +43,7 @@
                     variant: :tertiary,
                     class_name: "w-full justify-start text-xs",
                     type: "button",
-                    data: { action: "click->modal#open", modal_id_param: "list-modal" } %>
+                    data: { action: "click->list-modal#prepareNew click->modal#open", modal_id_param: "list-modal" } %>
             </div>
         </div>
     </aside>
@@ -65,7 +65,7 @@
                         label: "Criar lista",
                         variant: :primary,
                         type: "button",
-                        data: { action: "click->modal#open", modal_id_param: "list-modal" } %>
+                        data: { action: "click->list-modal#prepareNew click->modal#open", modal_id_param: "list-modal" } %>
                 <% end %>
             <% else %>
                 <div class="space-y-3">
