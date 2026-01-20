@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_list
+    before_action :set_list, except: %i[toggle_favorite]
     before_action :set_task, only: %i[edit update destroy toggle]
+    before_action :set_task_for_favorite, only: %i[toggle_favorite]
 
     def create
         @task = @list.tasks.build(task_params)
@@ -37,6 +38,11 @@ class TasksController < ApplicationController
         end
     end
 
+    def toggle_favorite
+        @task.update!(favorite: !@task.favorite?)
+        redirect_back fallback_location: lists_path
+    end
+
     def reorder
         ordered_ids = Array(params.require(:ordered_ids))
 
@@ -59,7 +65,11 @@ class TasksController < ApplicationController
         @task = @list.tasks.find(params[:id])
     end
 
+    def set_task_for_favorite
+        @task = Task.joins(:list).where(lists: { user_id: current_user.id }).find(params[:id])
+    end
+
     def task_params
-        params.require(:task).permit(:title)
+        params.require(:task).permit(:title, :due_at, :favorite)
     end
 end

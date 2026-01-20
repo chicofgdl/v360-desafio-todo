@@ -1,7 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "listSelect", "submit", "blockedHint", "title", "method", "heading"]
+  static targets = [
+    "form",
+    "listSelect",
+    "submit",
+    "blockedHint",
+    "title",
+    "method",
+    "heading",
+    "dueAt",
+    "favorite",
+  ]
 
   connect() {
     this.editing = false
@@ -17,6 +27,14 @@ export default class extends Controller {
 
     if (this.hasTitleTarget) {
       this.titleTarget.value = ""
+    }
+
+    if (this.hasDueAtTarget) {
+      this.dueAtTarget.value = ""
+    }
+
+    if (this.hasFavoriteTarget) {
+      this.favoriteTarget.checked = false
     }
 
     if (this.hasMethodTarget) {
@@ -44,7 +62,8 @@ export default class extends Controller {
   prepareEdit(event) {
     this.editing = true
 
-    const { taskId, taskTitle, taskListId } = event.currentTarget.dataset
+    const { taskId, taskTitle, taskListId, taskDueAt, taskFavorite } =
+      event.currentTarget.dataset
     const updateTemplate = this.formTarget.dataset.updateTemplate
 
     if (taskId && taskListId && updateTemplate) {
@@ -60,6 +79,14 @@ export default class extends Controller {
 
     if (this.hasTitleTarget && taskTitle !== undefined) {
       this.titleTarget.value = taskTitle
+    }
+
+    if (this.hasDueAtTarget) {
+      this.dueAtTarget.value = taskDueAt || ""
+    }
+
+    if (this.hasFavoriteTarget) {
+      this.favoriteTarget.checked = taskFavorite === "true"
     }
 
     if (this.hasListSelectTarget && taskListId) {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_18_160502) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_19_120000) do
   create_table "lists", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "position", default: 1, null: false
@@ -27,10 +27,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_18_160502) do
     t.text "description"
     t.boolean "done", default: false, null: false
     t.datetime "due_at"
+    t.boolean "favorite", default: false, null: false
     t.integer "list_id", null: false
     t.integer "position", default: 1, null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.index ["favorite"], name: "index_tasks_on_favorite"
     t.index ["list_id", "done"], name: "index_tasks_on_list_id_and_done"
     t.index ["list_id", "position"], name: "index_tasks_on_list_id_and_position"
     t.index ["list_id", "title"], name: "index_tasks_on_list_id_and_title", unique: true

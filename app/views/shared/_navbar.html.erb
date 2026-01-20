@@ -27,25 +27,7 @@
         <span class="app-navbar__brand-name">V-360</span>
       </div>
 
-      <label class="app-navbar__search">
-        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-          <path
-            d="M11 19a8 8 0 1 1 5.3-14l4.4 4.4"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <path
-            d="M20 20l-4.4-4.4"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-        <input type="search" placeholder="Busca rápida" />
-      </label>
+      <%= render "shared/searchbar", q: params[:q] %>
     </div>
 
     <div class="app-navbar__right">
@@ -106,14 +88,38 @@
           </summary>
           <div class="app-menu__content app-menu__content--right" role="menu">
             <div class="app-menu__label">Tema</div>
-            <button class="app-menu__item" type="button" data-theme-value="red" data-action="click->menubar#applyTheme">Vermelho</button>
-            <button class="app-menu__item" type="button" data-theme-value="orange" data-action="click->menubar#applyTheme">Laranja</button>
-            <button class="app-menu__item" type="button" data-theme-value="yellow" data-action="click->menubar#applyTheme">Amarelo</button>
-            <button class="app-menu__item" type="button" data-theme-value="green" data-action="click->menubar#applyTheme">Verde</button>
-            <button class="app-menu__item" type="button" data-theme-value="blue" data-action="click->menubar#applyTheme">Azul</button>
-            <button class="app-menu__item" type="button" data-theme-value="purple" data-action="click->menubar#applyTheme">Roxo</button>
-            <button class="app-menu__item" type="button" data-theme-value="pink" data-action="click->menubar#applyTheme">Rosa</button>
-            <button class="app-menu__item" type="button" data-theme-value="gray" data-action="click->menubar#applyTheme">Cinza</button>
+            <button class="app-menu__item" type="button" data-theme-value="red" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--red" aria-hidden="true"></span>
+              Vermelho
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="orange" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--orange" aria-hidden="true"></span>
+              Laranja
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="yellow" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--yellow" aria-hidden="true"></span>
+              Amarelo
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="green" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--green" aria-hidden="true"></span>
+              Verde
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="blue" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--blue" aria-hidden="true"></span>
+              Azul
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="purple" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--purple" aria-hidden="true"></span>
+              Roxo
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="pink" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--pink" aria-hidden="true"></span>
+              Rosa
+            </button>
+            <button class="app-menu__item" type="button" data-theme-value="gray" data-action="click->menubar#applyTheme">
+              <span class="app-swatch app-swatch--gray" aria-hidden="true"></span>
+              Cinza
+            </button>
           </div>
         </details>
 

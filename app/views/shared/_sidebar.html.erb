@@ -1,0 +1,110 @@
+<%# locals: lists:, selected_list:, filter:, task_summary: %>
+<%
+  selected_list_id = local_assigns[:selected_list]&.id
+  filter = local_assigns[:filter]
+  all_selected = filter.blank? && selected_list_id.blank?
+  today_selected = filter == "today"
+  soon_selected = filter == "soon"
+  overdue_selected = filter == "overdue"
+  favorites_selected = filter == "favorites"
+%>
+
+<aside class="w-full lg:w-64 space-y-6">
+  <div>
+    <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-500">Filtros</h2>
+
+    <div class="mt-3 grid grid-cols-2 gap-3">
+      <%= render "shared/filter_tile",
+            label: "Todos",
+            count: task_summary[:total],
+            href: (all_selected ? lists_path : lists_path(filter: "all")),
+            selected: all_selected do %>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-4 w-4">
+          <rect x="4" y="4" width="6" height="6" rx="1.5" fill="currentColor" />
+          <rect x="14" y="4" width="6" height="6" rx="1.5" fill="currentColor" />
+          <rect x="4" y="14" width="6" height="6" rx="1.5" fill="currentColor" />
+          <rect x="14" y="14" width="6" height="6" rx="1.5" fill="currentColor" />
+        </svg>
+      <% end %>
+
+      <%= render "shared/filter_tile",
+            label: "Hoje",
+            count: task_summary[:today],
+            href: (today_selected ? lists_path : lists_path(filter: "today")),
+            selected: today_selected do %>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-4 w-4">
+          <rect x="4" y="6" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M8 3v4M16 3v4M4 10h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      <% end %>
+
+      <%= render "shared/filter_tile",
+            label: "Em breve",
+            count: task_summary[:soon],
+            href: (soon_selected ? lists_path : lists_path(filter: "soon")),
+            selected: soon_selected do %>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-4 w-4">
+          <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M12 7v5l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      <% end %>
+
+      <%= render "shared/filter_tile",
+            label: "Atrasados",
+            count: task_summary[:overdue],
+            href: (overdue_selected ? lists_path : lists_path(filter: "overdue")),
+            selected: overdue_selected do %>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-4 w-4">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M12 7v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <circle cx="12" cy="17" r="1.5" fill="currentColor" />
+        </svg>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-500">Minhas listas</h2>
+
+    <div class="mt-3 space-y-1">
+      <%= render "shared/list_item",
+            label: "Favoritos",
+            count: task_summary[:favorites],
+            href: (favorites_selected ? lists_path : lists_path(filter: "favorites")),
+            selected: favorites_selected do %>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-3.5 w-3.5">
+          <path
+            d="M12 17.3 6.8 20l1-5.8-4.2-4.1 5.9-.8L12 4l2.5 5.3 5.9.8-4.2 4.1 1 5.8z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+      <% end %>
+
+      <% if lists.blank? %>
+        <p class="px-3 py-2 text-sm text-gray-500">
+          Voce ainda nao tem listas. Crie a primeira.
+        </p>
+      <% else %>
+        <% lists.each do |list| %>
+          <%= render "shared/list_item",
+                label: list.title,
+                count: list.tasks.size,
+                href: (selected_list_id == list.id ? lists_path : lists_path(list_id: list.id)),
+                selected: (selected_list_id == list.id) %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-3">
+      <%= render "shared/button",
+          label: "+ Adicionar lista",
+          variant: :tertiary,
+          class_name: "w-full justify-start text-xs",
+          type: "button",
+          data: { action: "click->list-modal#prepareNew click->modal#open", modal_id_param: "list-modal" } %>
+    </div>
+  </div>
+</aside>
