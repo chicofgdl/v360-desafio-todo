@@ -140,4 +140,22 @@
   .favorite-toggle {
     color: var(--color-primary-500);
   }
+
+  .task-due {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .task-due--today {
+    color: var(--color-primary-600);
+  }
+
+  .task-due--soon {
+    color: var(--color-text-muted);
+  }
+
+  .task-due--overdue {
+    color: var(--color-danger-600);
+  }
 }

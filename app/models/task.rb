@@ -7,7 +7,6 @@ class Task < ApplicationRecord
 
   scope :done, -> { where(done: true) }
   scope :pending, -> { where(done: false) }
-  scope :incomplete, -> { where(done: false) }
   scope :favorited, -> { where(favorite: true) }
   scope :due_today, -> {
     where(due_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
