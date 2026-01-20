@@ -4,9 +4,24 @@
   title_class = task.done? ? "line-through text-gray-500" : "text-gray-900"
 %>
 
-<div id="<%= dom_id(task) %>">
+<div id="<%= dom_id(task) %>" data-task-id="<%= task.id %>">
   <%= render "shared/card", class_name: card_class do %>
     <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="cursor-grab select-none drag-handle"
+        aria-label="Reordenar tarefa"
+        data-drag-handle
+      >
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="h-4 w-4">
+          <circle cx="9" cy="6" r="1.5" fill="currentColor" />
+          <circle cx="15" cy="6" r="1.5" fill="currentColor" />
+          <circle cx="9" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="15" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="9" cy="18" r="1.5" fill="currentColor" />
+          <circle cx="15" cy="18" r="1.5" fill="currentColor" />
+        </svg>
+      </button>
       <%= form_with url: toggle_list_task_path(task.list, task), method: :patch do %>
         <%= check_box_tag "done", "1", task.done?,
               class: "h-5 w-5 rounded-full border-gray-300 accent-primary",

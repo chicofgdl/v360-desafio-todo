@@ -37,6 +37,18 @@ class TasksController < ApplicationController
         end
     end
 
+    def reorder
+        ordered_ids = Array(params.require(:ordered_ids))
+
+        Task.transaction do
+            ordered_ids.each_with_index do |id, index|
+                @list.tasks.find(id).insert_at(index + 1)
+            end
+        end
+
+        head :no_content
+    end
+
     private
 
     def set_list

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   root "lists#index"
   resources :lists do
     resources :tasks, only: %i[create edit update destroy] do
+      collection do
+        patch :reorder
+      end
       member do
         patch :toggle
       end
