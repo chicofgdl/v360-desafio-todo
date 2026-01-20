@@ -36,24 +36,37 @@
                     <% end %>
                 <% end %>
             </div>
+
+            <div class="mt-3">
+                <%= render "shared/button",
+                    label: "+ Adicionar lista",
+                    variant: :tertiary,
+                    class_name: "w-full justify-start text-xs",
+                    type: "button",
+                    data: { action: "click->modal#open", modal_id_param: "list-modal" } %>
+            </div>
         </div>
     </aside>
 
     <section class="flex-1 space-y-6">
-        <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Minhas listas</h1>
-            <p class="mt-1 text-sm text-gray-500">Organize suas tarefas em listas.</p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-900">Minhas listas</h1>
+                <p class="mt-1 text-sm text-gray-500">Organize suas tarefas em listas.</p>
+            </div>
         </div>
-
-        <%= render "shared/card", class_name: "p-4" do %>
-            <%= render "form", list: @list %>
-        <% end %>
 
         <div id="lists" class="space-y-4">
             <% if @lists.blank? %>
                 <%= render "shared/empty_state",
                     title: "Voce ainda nao tem listas",
-                    description: "Crie uma lista usando o formulario acima para organizar suas tarefas." %>
+                    description: "Crie uma lista para organizar suas tarefas." do %>
+                    <%= render "shared/button",
+                        label: "Criar lista",
+                        variant: :primary,
+                        type: "button",
+                        data: { action: "click->modal#open", modal_id_param: "list-modal" } %>
+                <% end %>
             <% else %>
                 <div class="space-y-3">
                     <%= render @lists %>
@@ -62,3 +75,6 @@
         </div>
     </section>
 </div>
+
+<%= render "lists/new_list_modal", list: @list %>
+<%= render "tasks/new_task_modal", task: @task, lists: @lists %>

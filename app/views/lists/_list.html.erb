@@ -17,17 +17,28 @@
             </div>
         </div>
 
-        <div>
-            <%= render "tasks/form", list: list, task: Task.new %>
-        </div>
-
         <% if list.tasks.blank? %>
             <%= render "shared/empty_state",
                 title: "Lista vazia",
-                description: "Adicione uma tarefa para comecar." %>
+                description: "Adicione uma tarefa para comecar." do %>
+                <%= render "shared/button",
+                    label: "Adicionar tarefa",
+                    variant: :secondary,
+                    type: "button",
+                    data: { action: "click->modal#open", modal_id_param: "task-modal" } %>
+            <% end %>
         <% else %>
             <div class="space-y-2">
                 <%= render list.tasks %>
+            </div>
+
+            <div class="pt-2">
+                <%= render "shared/button",
+                    label: "+ Adicionar tarefa",
+                    variant: :tertiary,
+                    class_name: "text-xs",
+                    type: "button",
+                    data: { action: "click->modal#open", modal_id_param: "task-modal" } %>
             </div>
         <% end %>
     <% end %>
