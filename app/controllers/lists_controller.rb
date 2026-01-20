@@ -96,7 +96,7 @@ class ListsController < ApplicationController
             @tasks_by_list_id = filtered_tasks_by_list(@filter)
             @display_lists = @lists.select { |list| @tasks_by_list_id[list.id].present? }
         elsif @selected_list
-            @display_lists = [@selected_list]
+            @display_lists = [ @selected_list ]
             @tasks_by_list_id = {}
         else
             @display_lists = @lists
@@ -106,13 +106,14 @@ class ListsController < ApplicationController
 
     def filtered_tasks_by_list(filter)
         tasks = tasks_scope
-        tasks = case filter
-                when "today" then tasks.due_today
-                when "soon" then tasks.due_soon
-                when "overdue" then tasks.overdue
-                when "favorites" then tasks.favorited
-                else tasks
-                end
+        tasks =
+            case filter
+            when "today" then tasks.due_today
+            when "soon" then tasks.due_soon
+            when "overdue" then tasks.overdue
+            when "favorites" then tasks.favorited
+            else tasks
+            end
 
         tasks.order(:position).group_by(&:list_id)
     end
