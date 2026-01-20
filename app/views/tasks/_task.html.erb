@@ -14,10 +14,10 @@
       due_label = "Atrasada desde #{due_time.strftime("%d/%m/%Y")}"
       due_class = "task-due task-due--overdue"
     elsif due_time.to_date == now.to_date
-      due_label = "Para hoje as #{due_time.strftime("%Hh%M")}"
+      due_label = "Para hoje às #{due_time.strftime("%Hh%M")}"
       due_class = "task-due task-due--today"
     elsif due_time > now
-      due_label = "Ate dia #{due_time.strftime("%d/%m/%Y")}"
+      due_label = "Até dia #{due_time.strftime("%d/%m/%Y")}"
       due_class = "task-due task-due--soon"
     else
       due_label = "Venceu em #{due_time.strftime("%d/%m/%Y")}"
