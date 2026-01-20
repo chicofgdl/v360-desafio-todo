@@ -3,6 +3,14 @@
     accent-color: var(--color-primary-500);
   }
 
+  .drag-handle {
+    color: var(--color-primary-500);
+  }
+
+  .drag-handle:hover {
+    color: var(--color-primary-600);
+  }
+
   .icon-button {
     width: 1.75rem;
     height: 1.75rem;
