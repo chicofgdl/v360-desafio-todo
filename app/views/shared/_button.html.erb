@@ -1,0 +1,22 @@
+<%# locals: label:, href: (opcional), variant: (:primary, :secondary, :tertiary), type: (opcional), class_name: (opcional), data: (opcional), aria: (opcional), disabled: (opcional) %>
+<%
+  variant = (local_assigns[:variant] || :primary).to_sym
+  variant = :primary unless %i[primary secondary tertiary].include?(variant)
+  classes = ["btn", "btn--#{variant}"]
+  classes << local_assigns[:class_name] if local_assigns[:class_name].present?
+  button_type = local_assigns[:type].presence || "button"
+  data_attributes = local_assigns[:data] || {}
+  aria_attributes = local_assigns[:aria] || {}
+  is_disabled = local_assigns[:disabled] || false
+%>
+
+<% if local_assigns[:href].present? %>
+  <%= link_to label, href, class: classes.join(" "), data: data_attributes, aria: aria_attributes %>
+<% else %>
+  <%= button_tag label,
+        type: button_type,
+        class: classes.join(" "),
+        data: data_attributes,
+        aria: aria_attributes,
+        disabled: is_disabled %>
+<% end %>

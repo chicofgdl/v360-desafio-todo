@@ -1,9 +1,80 @@
-<h1>Minhas listas</h1>
+<div class="w-full flex flex-col gap-8 lg:flex-row">
+    <aside class="w-full lg:w-64 space-y-6">
+        <div>
+            <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-500">Filtros</h2>
 
-<%= render "form", list: @list %>
+            <div class="mt-3 space-y-2">
+                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-3 py-2">
+                    <span class="text-sm font-medium text-gray-900">Todas</span>
+                    <%= render "shared/badge", text: @task_summary[:total], variant: :blue %>
+                </div>
 
-<hr />
+                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-3 py-2">
+                    <span class="text-sm font-medium text-gray-900">Pendentes</span>
+                    <%= render "shared/badge", text: @task_summary[:pending], variant: :yellow %>
+                </div>
 
-<div id="lists">
-    <%= render @lists %>
+                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-3 py-2">
+                    <span class="text-sm font-medium text-gray-900">Concluidas</span>
+                    <%= render "shared/badge", text: @task_summary[:done], variant: :purple %>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-500">Minhas listas</h2>
+
+            <div class="mt-3 space-y-2">
+                <% if @lists.blank? %>
+                    <p class="text-sm text-gray-500">Nenhuma lista criada.</p>
+                <% else %>
+                    <% @lists.each do |list| %>
+                        <div class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-50">
+                            <span class="text-sm text-gray-900"><%= list.title %></span>
+                            <%= render "shared/badge", text: list.tasks.size, variant: :neutral %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+
+            <div class="mt-3">
+                <%= render "shared/button",
+                    label: "+ Adicionar lista",
+                    variant: :tertiary,
+                    class_name: "w-full justify-start text-xs",
+                    type: "button",
+                    data: { action: "click->list-modal#prepareNew click->modal#open", modal_id_param: "list-modal" } %>
+            </div>
+        </div>
+    </aside>
+
+    <section class="flex-1 space-y-6">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-900">Minhas listas</h1>
+                <p class="mt-1 text-sm text-gray-500">Organize suas tarefas em listas.</p>
+            </div>
+        </div>
+
+        <div id="lists" class="space-y-4">
+            <% if @lists.blank? %>
+                <%= render "shared/empty_state",
+                    title: "Voce ainda nao tem listas",
+                    description: "Crie uma lista para organizar suas tarefas." do %>
+                    <%= render "shared/button",
+                        label: "Criar lista",
+                        variant: :primary,
+                        type: "button",
+                        data: { action: "click->list-modal#prepareNew click->modal#open", modal_id_param: "list-modal" } %>
+                <% end %>
+            <% else %>
+                <div class="space-y-3">
+                    <%= render @lists %>
+                </div>
+            <% end %>
+        </div>
+    </section>
 </div>
+
+<%= render "lists/new_list_modal", list: @list %>
+<%= render "tasks/new_task_modal", task: @task, lists: @lists %>

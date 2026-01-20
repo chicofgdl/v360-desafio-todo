@@ -1,0 +1,87 @@
+<%
+  first_list = lists.first
+  form_action = first_list ? list_tasks_path(first_list) : "#"
+%>
+
+<dialog id="task-modal" class="app-modal">
+  <div class="app-modal__panel">
+    <div class="app-modal__header">
+      <h2 data-task-modal-target="heading">Nova tarefa</h2>
+      <button type="button"
+              class="app-modal__close"
+              data-action="click->modal#close"
+              data-modal-id-param="task-modal"
+              aria-label="Fechar">
+        x
+      </button>
+    </div>
+
+    <%= form_with model: task,
+          url: form_action,
+          data: {
+            task_modal_target: "form",
+            action_template: "/lists/:list_id/tasks",
+            update_template: "/lists/:list_id/tasks/:id"
+          } do |form| %>
+      <input type="hidden" name="_method" data-task-modal-target="method" disabled>
+
+      <div class="app-modal__field">
+        <%= form.label :title, "Titulo", class: "app-modal__label" %>
+        <%= form.text_field :title,
+            class: "app-modal__input",
+            placeholder: "O que precisa fazer?",
+            data: { task_modal_target: "title" },
+            required: true %>
+      </div>
+
+      <div class="app-modal__grid">
+        <div class="app-modal__field app-blocked" aria-disabled="true">
+          <div class="app-modal__label">Data de vencimento</div>
+          <input class="app-modal__input" type="text" placeholder="dd/mm/aaaa" disabled>
+        </div>
+        <div class="app-modal__field app-blocked" aria-disabled="true">
+          <div class="app-modal__label">Prioridade</div>
+          <input class="app-modal__input" type="text" placeholder="Nenhuma" disabled>
+        </div>
+      </div>
+
+      <div class="app-modal__field">
+        <label class="app-modal__label" for="task_list_id">Lista</label>
+        <select class="app-modal__input"
+                id="task_list_id"
+                name="list_id"
+                data-task-modal-empty="<%= lists.blank? %>"
+                data-task-modal-target="listSelect"
+                data-action="change->task-modal#updateForm"
+                <%= "disabled" if lists.blank? %>>
+          <% if lists.blank? %>
+            <option value="">Crie uma lista primeiro</option>
+          <% else %>
+            <% lists.each do |list| %>
+              <option value="<%= list.id %>"><%= list.title %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="app-modal__hint app-modal__hint--spaced" data-task-modal-target="blockedHint" hidden>
+        Crie uma lista antes de adicionar tarefas.
+      </div>
+
+      <div class="app-modal__actions">
+        <button type="button"
+                class="btn btn--secondary"
+                data-action="click->modal#close"
+                data-modal-id-param="task-modal">
+          Cancelar
+        </button>
+        <%= render "shared/button",
+            label: "Adicionar",
+            variant: :primary,
+            type: "submit",
+            disabled: lists.blank?,
+            data: { task_modal_target: "submit" } %>
+      </div>
+    <% end %>
+  </div>
+</dialog>

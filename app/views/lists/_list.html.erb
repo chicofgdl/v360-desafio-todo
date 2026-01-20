@@ -1,18 +1,109 @@
-<div id="<%= dom_id(list) %>" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
-    <strong><%= list.title %></strong>
+<div id="<%= dom_id(list) %>">
+    <%= render "shared/card", class_name: "p-4 space-y-4" do %>
+        <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+                <h3 class="text-sm font-semibold text-gray-900"><%= list.title %></h3>
+                <p class="text-xs text-gray-500"><%= pluralize(list.tasks.size, "tarefa") %></p>
+            </div>
 
-    <span style="margin-left: 1em; display: flex; gap: 10px;">
-        <%= link_to "Editar", edit_list_path(list) %> |
-        <%= button_to "Deletar", list_path(list), method: :delete, data: { turbo_confirm: "Tem certeza?" } %>
-    </span>
-
-    <div style="margin-top: 8px;">
-        <%= render "tasks/form", list: list, task: Task.new %>
-    </div>
-
-    <% if list.tasks.any? %>
-        <div style="margin-top: 8px;">
-            <%= render list.tasks %>
+            <div class="flex items-center gap-2">
+                <button type="button"
+                        class="icon-button"
+                        aria-label="Editar lista"
+                        data-action="click->list-modal#prepareEdit click->modal#open"
+                        data-modal-id-param="list-modal"
+                        data-list-id="<%= list.id %>"
+                        data-list-title="<%= list.title %>">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path
+                            d="M4 16.5V20h3.5L18 9.5 14.5 6 4 16.5z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M13.5 7l3.5 3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                </button>
+                <%= button_to list_path(list),
+                    method: :delete,
+                    data: { turbo_confirm: "Tem certeza?" },
+                    form: { class: "inline" },
+                    class: "icon-button icon-button--danger",
+                    aria: { label: "Deletar lista" } do %>
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path
+                            d="M3 6h18"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <path
+                            d="M8 6V4h8v2"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <path
+                            d="M6 6l1 14h10l1-14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M10 11v6M14 11v6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                <% end %>
+            </div>
         </div>
+
+        <% if list.tasks.blank? %>
+            <%= render "shared/empty_state",
+                title: "Lista vazia",
+                description: "Adicione uma tarefa para comecar." do %>
+                <%= render "shared/button",
+                    label: "Adicionar tarefa",
+                    variant: :secondary,
+                    type: "button",
+                    data: {
+                        action: "click->task-modal#prepareNew click->modal#open",
+                        modal_id_param: "task-modal",
+                        task_list_id: list.id
+                    } %>
+            <% end %>
+        <% else %>
+            <div class="space-y-2">
+                <%= render list.tasks %>
+            </div>
+
+            <div class="pt-2">
+                <%= render "shared/button",
+                    label: "+ Adicionar tarefa",
+                    variant: :tertiary,
+                    class_name: "text-xs",
+                    type: "button",
+                    data: {
+                        action: "click->task-modal#prepareNew click->modal#open",
+                        modal_id_param: "task-modal",
+                        task_list_id: list.id
+                    } %>
+            </div>
+        <% end %>
     <% end %>
 </div>
