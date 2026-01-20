@@ -5,6 +5,7 @@ class ListsController < ApplicationController
     def index
         load_lists
         @list = current_user.lists.build
+        @task = Task.new
         build_task_summary
     end
 
@@ -23,6 +24,7 @@ class ListsController < ApplicationController
         else
             load_lists
             build_task_summary
+            @task = Task.new
             flash.now[:alert] = "Erro ao criar a lista."
             render :index, status: :unprocessable_entity
         end
