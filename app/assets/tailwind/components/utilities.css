@@ -11,6 +11,10 @@
     color: var(--color-primary-600);
   }
 
+  .drag-handle svg {
+    pointer-events: none;
+  }
+
   .filter-tile {
     display: flex;
     flex-direction: column;
@@ -139,6 +143,25 @@
 
   .favorite-toggle {
     color: var(--color-primary-500);
+  }
+
+  .favorite-toggle-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-500);
+    cursor: pointer;
+  }
+
+  .favorite-toggle-button.is-active {
+    color: var(--color-primary-600);
+  }
+
+  .favorite-toggle-button.is-active svg path {
+    fill: currentColor;
   }
 
   .task-due {
