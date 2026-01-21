@@ -17,6 +17,8 @@ export default class extends Controller {
     } else {
       dialog.setAttribute("open", "open")
     }
+
+    this.moveNotyfContainer(dialog)
   }
 
   close(event) {
@@ -34,6 +36,38 @@ export default class extends Controller {
       dialog.close()
     } else {
       dialog.removeAttribute("open")
+    }
+
+    this.restoreNotyfContainer()
+  }
+
+  moveNotyfContainer(dialog) {
+    const container = document.querySelector(".notyf")
+    if (!container) {
+      return
+    }
+
+    if (dialog && !dialog.contains(container)) {
+      dialog.appendChild(container)
+    }
+  }
+
+  restoreNotyfContainer() {
+    const container = document.querySelector(".notyf")
+    if (!container) {
+      return
+    }
+
+    const openDialogs = Array.from(document.querySelectorAll("dialog[open]"))
+    const activeDialog = openDialogs[openDialogs.length - 1]
+
+    if (activeDialog) {
+      activeDialog.appendChild(container)
+      return
+    }
+
+    if (container.parentElement !== document.body) {
+      document.body.appendChild(container)
     }
   }
 }
