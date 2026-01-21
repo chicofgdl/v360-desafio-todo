@@ -3,7 +3,10 @@ class Task < ApplicationRecord
 
   acts_as_list scope: :list
 
-  validates :title, presence: true, length: { maximum: 100 }
+  validates :title,
+    presence: true,
+    length: { maximum: 100 },
+    uniqueness: { scope: :list_id, case_sensitive: false }
 
   scope :done, -> { where(done: true) }
   scope :pending, -> { where(done: false) }
