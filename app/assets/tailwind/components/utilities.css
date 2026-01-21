@@ -136,6 +136,10 @@
     color: var(--color-primary-500);
   }
 
+  .icon-button--favorite svg path {
+    fill: currentColor;
+  }
+
   .icon-button--favorite:hover {
     color: var(--color-primary-600);
     background: color-mix(in srgb, var(--color-primary-500) 10%, transparent);
@@ -143,25 +147,6 @@
 
   .favorite-toggle {
     color: var(--color-primary-500);
-  }
-
-  .favorite-toggle-button {
-    border: none;
-    background: transparent;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary-500);
-    cursor: pointer;
-  }
-
-  .favorite-toggle-button.is-active {
-    color: var(--color-primary-600);
-  }
-
-  .favorite-toggle-button.is-active svg path {
-    fill: currentColor;
   }
 
   .task-due {

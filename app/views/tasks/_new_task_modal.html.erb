@@ -43,18 +43,22 @@
         </div>
         <div class="app-modal__field">
           <div class="app-modal__label">Favorita</div>
-          <label class="flex items-center gap-2 text-sm text-gray-600">
+          <div class="flex items-center gap-2 text-sm text-gray-600">
             <%= form.check_box :favorite,
-                class: "h-4 w-4 rounded-full border-gray-300 accent-primary",
+                class: "sr-only",
                 data: { task_modal_target: "favorite" } %>
-            <svg viewBox="0 0 24 24" role="img" aria-hidden="true" class="favorite-toggle h-4 w-4">
-              <path
-                d="M12 17.3 6.8 20l1-5.8-4.2-4.1 5.9-.8L12 4l2.5 5.3 5.9.8-4.2 4.1 1 5.8z"
-                fill="currentColor"
-              />
-            </svg>
-            Marcar como favorita
-          </label>
+            <button type="button"
+                    class="icon-button"
+                    data-action="click->task-modal#toggleFavorite"
+                    data-task-modal-target="favoriteButton"
+                    aria-label="Alternar favorito"
+                    aria-pressed="false">
+              <%= render "shared/icons/star",
+                  class_name: "h-4 w-4",
+                  filled: false %>
+            </button>
+            <span>Marcar como favorita</span>
+          </div>
         </div>
       </div>
 

@@ -11,6 +11,7 @@ export default class extends Controller {
     "heading",
     "dueAt",
     "favorite",
+    "favoriteButton",
   ]
 
   connect() {
@@ -36,6 +37,7 @@ export default class extends Controller {
     if (this.hasFavoriteTarget) {
       this.favoriteTarget.checked = false
     }
+    this.syncFavoriteToggle()
 
     if (this.hasMethodTarget) {
       this.methodTarget.value = ""
@@ -88,6 +90,7 @@ export default class extends Controller {
     if (this.hasFavoriteTarget) {
       this.favoriteTarget.checked = taskFavorite === "true"
     }
+    this.syncFavoriteToggle()
 
     if (this.hasListSelectTarget && taskListId) {
       this.listSelectTarget.value = taskListId
@@ -141,5 +144,25 @@ export default class extends Controller {
     if (this.hasBlockedHintTarget) {
       this.blockedHintTarget.setAttribute("hidden", "hidden")
     }
+  }
+
+  toggleFavorite(event) {
+    event.preventDefault()
+    if (!this.hasFavoriteTarget) {
+      return
+    }
+
+    this.favoriteTarget.checked = !this.favoriteTarget.checked
+    this.syncFavoriteToggle()
+  }
+
+  syncFavoriteToggle() {
+    if (!this.hasFavoriteTarget || !this.hasFavoriteButtonTarget) {
+      return
+    }
+
+    const active = this.favoriteTarget.checked
+    this.favoriteButtonTarget.classList.toggle("icon-button--favorite", active)
+    this.favoriteButtonTarget.setAttribute("aria-pressed", active.toString())
   }
 }

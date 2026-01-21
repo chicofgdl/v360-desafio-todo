@@ -65,7 +65,9 @@
               form: { class: "inline" },
               class: "icon-button #{task.favorite? ? "icon-button--favorite" : ""}",
               aria: { label: (task.favorite? ? "Remover favorito" : "Favoritar tarefa") } do %>
-          <%= render "shared/icons/star", filled: task.favorite? %>
+          <%= render "shared/icons/star",
+              class_name: "h-4 w-4",
+              filled: task.favorite? %>
         <% end %>
         <button type="button"
                 class="icon-button"
