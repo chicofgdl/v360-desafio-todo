@@ -27,5 +27,15 @@
     <main class="container mx-auto mt-8 px-5 flex">
       <%= yield %>
     </main>
+    <div id="toast-region">
+      <% flash.each do |type, message| %>
+        <% toast_type = case type.to_s
+           when "notice" then "success"
+           when "alert", "error" then "error"
+           else "info"
+           end %>
+        <%= render "shared/toast", message: message, type: toast_type %>
+      <% end %>
+    </div>
   </body>
 </html>

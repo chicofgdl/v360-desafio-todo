@@ -166,4 +166,96 @@
   .task-due--overdue {
     color: var(--color-danger-600);
   }
+
+  .notyf {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10050;
+    pointer-events: none;
+  }
+
+  .notyf__toast {
+    pointer-events: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.15);
+    position: relative;
+    animation: notyf-fadeinup 0.25s ease;
+  }
+
+  .notyf__message {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .notyf__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .app-notyf {
+    border-left: 4px solid var(--color-primary-500);
+  }
+
+  .app-notyf--success {
+    border-left-color: #16a34a;
+  }
+
+  .app-notyf--error {
+    border-left-color: var(--color-danger-600);
+  }
+
+  .notyf__dismiss,
+  .notyf__dismiss-btn {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.35rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .notyf__dismiss:hover,
+  .notyf__dismiss-btn:hover {
+    opacity: 1;
+  }
+
+  .notyf__toast--dismiss,
+  .notyf__toast--disappear {
+    animation: notyf-fadeoutdown 0.2s ease forwards;
+  }
+
+  @keyframes notyf-fadeinup {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes notyf-fadeoutdown {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
 }
