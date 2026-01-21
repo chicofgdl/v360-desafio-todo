@@ -43,6 +43,19 @@ O projeto segue a arquitetura padrão do **Ruby on Rails (MVC)**:
 └── README.md
 ```
 
+## Icones
+
+Os SVGs ficam centralizados em `app/views/shared/icons` e devem ser reutilizados
+via `render`. Use `currentColor` nos paths para manter compatibilidade com
+classes do Tailwind.
+
+Exemplos:
+
+```erb
+<%= render "shared/icons/search" %>
+<%= render "shared/icons/star", class_name: "h-4 w-4", filled: true, stroke: false %>
+```
+
 ## Pré-requisitos
 
 - Ruby 3.4.8

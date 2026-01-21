@@ -5,24 +5,7 @@
     <div class="app-navbar__left">
       <div class="app-navbar__brand" aria-label="V-360">
         <div class="app-navbar__logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path
-              d="M7 12.5l3 3 7-7"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M5 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <%= render "shared/icons/logo" %>
         </div>
         <span class="app-navbar__brand-name">V-360</span>
       </div>
@@ -34,15 +17,7 @@
       <div class="app-menubar" role="menubar" data-controller="menubar">
         <details class="app-menu" data-menubar-target="menu">
           <summary class="app-menu__trigger" aria-label="Adicionar" data-action="click->menubar#openExclusive">
-            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-              <path
-                d="M12 5v14M5 12h14"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
+            <%= render "shared/icons/plus" %>
           </summary>
           <div class="app-menu__content" role="menu">
             <div class="app-menu__label">Adicionar</div>
@@ -68,23 +43,7 @@
 
         <details class="app-menu" data-menubar-target="menu">
           <summary class="app-menu__trigger" aria-label="Temas" data-action="click->menubar#openExclusive">
-            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-              <path
-                d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-              <path
-                d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-1.4 3.4 2 2 0 0 1-1.4-.6l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 0 1-2.8 0 2 2 0 0 1 0-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 0 1 0-2.8 2 2 0 0 1 2.8 0l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 0 1 2.8 0 2 2 0 0 1 0 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <%= render "shared/icons/theme" %>
           </summary>
           <div class="app-menu__content app-menu__content--right" role="menu">
             <div class="app-menu__label">Tema</div>

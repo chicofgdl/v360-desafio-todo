@@ -9,7 +9,7 @@ export default class extends Controller {
   connect() {
     this.sortable = Sortable.create(this.element, {
       animation: 150,
-      handle: "[data-drag-handle]",
+      handle: "[data-drag-handle], .drag-handle",
       onEnd: () => this.persist(),
     })
   }

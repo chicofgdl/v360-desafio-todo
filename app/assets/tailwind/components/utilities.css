@@ -11,6 +11,10 @@
     color: var(--color-primary-600);
   }
 
+  .drag-handle svg {
+    pointer-events: none;
+  }
+
   .filter-tile {
     display: flex;
     flex-direction: column;
@@ -130,6 +134,10 @@
 
   .icon-button--favorite {
     color: var(--color-primary-500);
+  }
+
+  .icon-button--favorite svg path {
+    fill: currentColor;
   }
 
   .icon-button--favorite:hover {

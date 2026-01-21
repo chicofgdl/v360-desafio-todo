@@ -1,20 +1,11 @@
 <%# locals: q: (opcional) %>
 <%= form_with url: lists_path, method: :get, class: "app-navbar__search", local: true do %>
-  <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-    <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
-    <path
-      d="M20 20l-3.5-3.5"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-    />
-  </svg>
+  <%= render "shared/icons/search" %>
   <input
     type="search"
     name="q"
     value="<%= local_assigns[:q] || params[:q] %>"
-    placeholder="Busca rápida"
+    placeholder="Busca"
     aria-label="Busca"
   />
 <% end %>
