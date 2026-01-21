@@ -65,15 +65,7 @@
               form: { class: "inline" },
               class: "icon-button #{task.favorite? ? "icon-button--favorite" : ""}",
               aria: { label: (task.favorite? ? "Remover favorito" : "Favoritar tarefa") } do %>
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path
-              d="M12 17.3 6.8 20l1-5.8-4.2-4.1 5.9-.8L12 4l2.5 5.3 5.9.8-4.2 4.1 1 5.8z"
-              fill="<%= task.favorite? ? "currentColor" : "none" %>"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <%= render "shared/icons/star", filled: task.favorite? %>
         <% end %>
         <button type="button"
                 class="icon-button"
@@ -85,23 +77,7 @@
                 data-task-list-id="<%= task.list_id %>"
                 data-task-due-at="<%= task.due_at&.in_time_zone&.strftime("%Y-%m-%dT%H:%M") %>"
                 data-task-favorite="<%= task.favorite? %>">
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path
-              d="M4 16.5V20h3.5L18 9.5 14.5 6 4 16.5z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M13.5 7l3.5 3.5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
+          <%= render "shared/icons/edit" %>
         </button>
         <%= button_to list_task_path(task.list, task),
               method: :delete,
@@ -109,37 +85,7 @@
               form: { class: "inline" },
               class: "icon-button icon-button--danger",
               aria: { label: "Deletar tarefa" } do %>
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path
-              d="M3 6h18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <path
-              d="M8 6V4h8v2"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <path
-              d="M6 6l1 14h10l1-14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 11v6M14 11v6"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
+          <%= render "shared/icons/trash" %>
         <% end %>
       </div>
     </div>
