@@ -9,6 +9,18 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def toast_stream(message, type: "error")
+    turbo_stream.append(
+      "toast-region",
+      partial: "shared/toast",
+      locals: { message: message, type: type }
+    )
+  end
+
+  def duplicate_error?(record, attribute)
+    record.errors.details.fetch(attribute, []).any? { |detail| detail[:error] == :taken }
+  end
+
   def auto_sign_in_dev
     return unless Rails.env.development?
     return if user_signed_in?

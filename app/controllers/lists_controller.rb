@@ -23,12 +23,22 @@ class ListsController < ApplicationController
         if @list.save
             redirect_to lists_path, notice: "Lista criada com sucesso."
         else
-            load_lists
-            set_selection
-            build_task_summary
-            @task = Task.new
-            flash.now[:alert] = "Erro ao criar a lista."
-            render :index, status: :unprocessable_entity
+            message = duplicate_error?(@list, :title) ? "Já existe uma lista com esse nome." : "Erro ao criar a lista."
+
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: toast_stream(message), status: :unprocessable_entity
+                end
+                format.html do
+                    load_lists
+                    set_selection
+                    build_task_summary
+                    @task = Task.new
+                    flash.now[:alert] = message
+                    render :index, status: :unprocessable_entity
+                end
+                format.json { render json: { error: message }, status: :unprocessable_entity }
+            end
         end
     end
 
@@ -39,8 +49,18 @@ class ListsController < ApplicationController
         if @list.update(list_params)
             redirect_to lists_path, notice: "Lista atualizada com sucesso."
         else
-            flash.now[:alert] = "Erro ao atualizar a lista."
-            render :edit, status: :unprocessable_entity
+            message = duplicate_error?(@list, :title) ? "Ja existe uma lista com esse nome." : "Erro ao atualizar a lista."
+
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: toast_stream(message), status: :unprocessable_entity
+                end
+                format.html do
+                    flash.now[:alert] = message
+                    render :edit, status: :unprocessable_entity
+                end
+                format.json { render json: { error: message }, status: :unprocessable_entity }
+            end
         end
     end
 

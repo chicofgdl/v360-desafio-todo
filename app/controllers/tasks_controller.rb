@@ -9,7 +9,15 @@ class TasksController < ApplicationController
         if @task.save
             redirect_to lists_path, notice: "Tarefa criada com sucesso."
         else
-            render :edit, status: :unprocessable_entity
+            message = duplicate_error?(@task, :title) ? "Ja existe uma tarefa com esse titulo nesta lista." : "Erro ao criar a tarefa."
+
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: toast_stream(message), status: :unprocessable_entity
+                end
+                format.html { redirect_to lists_path, alert: message }
+                format.json { render json: { error: message }, status: :unprocessable_entity }
+            end
         end
     end
 
@@ -20,7 +28,18 @@ class TasksController < ApplicationController
         if @task.update(task_params)
             redirect_to lists_path, notice: "Tarefa atualizada com sucesso."
         else
-            render :edit, status: :unprocessable_entity
+            message = duplicate_error?(@task, :title) ? "Ja existe uma tarefa com esse titulo nesta lista." : "Erro ao atualizar a tarefa."
+
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: toast_stream(message), status: :unprocessable_entity
+                end
+                format.html do
+                    flash.now[:alert] = message
+                    render :edit, status: :unprocessable_entity
+                end
+                format.json { render json: { error: message }, status: :unprocessable_entity }
+            end
         end
     end
 
