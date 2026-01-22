@@ -124,9 +124,12 @@ rails s
 
 ## Testes
 
-⚠️ Ainda não implementado
+Estratégia de testes utilizando RSPEC.
 
-Estratégia de testes (ex: RSpec / Minitest) será definida em versões futuras.
+Abra o terminal e digite:
+```
+bundle exec rspec --format documentation 
+```
 
 ## Autenticação e Autorização
 
