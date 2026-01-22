@@ -1,0 +1,14 @@
+<%
+  class_name = local_assigns[:class_name] || local_assigns[:class]
+  class_attr = class_name.present? ? " class=\"#{class_name}\"" : ""
+%>
+<svg viewBox="0 0 24 24" role="img" aria-hidden="true"<%= class_attr %>>
+  <circle cx="12" cy="12" r="9" fill="none" opacity="0.25" stroke="currentColor" stroke-width="2" />
+  <path
+    d="M21 12a9 9 0 0 0-9-9"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+  />
+</svg>

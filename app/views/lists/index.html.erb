@@ -34,6 +34,7 @@
         end
 
     sortable = @filter.blank? && !@search_mode
+    show_suggestions = sortable
 %>
 
 <div class="w-full flex flex-col gap-8 lg:flex-row">
@@ -62,7 +63,11 @@
                         <%= render partial: "lists/list",
                             collection: @display_lists,
                             as: :list,
-                            locals: { tasks_by_list_id: @tasks_by_list_id, sortable: false } %>
+                            locals: {
+                                tasks_by_list_id: @tasks_by_list_id,
+                                sortable: false,
+                                show_suggestions: show_suggestions
+                            } %>
                     </div>
                 <% end %>
             <% elsif @filter.present? %>
@@ -87,7 +92,11 @@
                         <%= render partial: "lists/list",
                             collection: @display_lists,
                             as: :list,
-                            locals: { tasks_by_list_id: @tasks_by_list_id, sortable: false } %>
+                            locals: {
+                                tasks_by_list_id: @tasks_by_list_id,
+                                sortable: false,
+                                show_suggestions: show_suggestions
+                            } %>
                     </div>
                 <% end %>
             <% elsif @selected_list %>
@@ -110,7 +119,11 @@
                         <%= render partial: "lists/list",
                             collection: @display_lists,
                             as: :list,
-                            locals: { tasks_by_list_id: @tasks_by_list_id, sortable: sortable } %>
+                            locals: {
+                                tasks_by_list_id: @tasks_by_list_id,
+                                sortable: sortable,
+                                show_suggestions: show_suggestions
+                            } %>
                     </div>
                 <% end %>
             <% elsif @lists.blank? %>
@@ -128,7 +141,11 @@
                     <%= render partial: "lists/list",
                         collection: @display_lists,
                         as: :list,
-                        locals: { tasks_by_list_id: @tasks_by_list_id, sortable: sortable } %>
+                        locals: {
+                            tasks_by_list_id: @tasks_by_list_id,
+                            sortable: sortable,
+                            show_suggestions: show_suggestions
+                        } %>
                 </div>
             <% end %>
         </div>

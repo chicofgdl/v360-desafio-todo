@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root "lists#index"
   resources :lists do
+    post :task_suggestions, on: :member
     resources :tasks, only: %i[create edit update destroy] do
       collection do
         patch :reorder
