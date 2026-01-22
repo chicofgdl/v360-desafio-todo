@@ -5,6 +5,7 @@
         list.tasks
     end
     sortable = local_assigns.fetch(:sortable, true)
+    show_suggestions = local_assigns.fetch(:show_suggestions, true)
 %>
 
 <div id="<%= dom_id(list) %>">
@@ -15,7 +16,29 @@
                 <p class="text-xs text-gray-500"><%= pluralize(tasks.size, "tarefa") %></p>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+                <% if show_suggestions %>
+                    <%= button_to task_suggestions_list_path(list),
+                        method: :post,
+                        form: {
+                            class: "inline",
+                            data: {
+                                controller: "task-suggestions",
+                                action: "turbo:submit-start->task-suggestions#start turbo:submit-end->task-suggestions#end"
+                            }
+                        },
+                        class: "btn btn--secondary text-xs",
+                        data: { task_suggestions_target: "button" },
+                        aria: { label: "Sugerir tasks" } do %>
+                        <span data-task-suggestions-target="icon" class="inline-flex">
+                            <%= render "shared/icons/sparkles", class_name: "h-4 w-4" %>
+                        </span>
+                        <span data-task-suggestions-target="spinner" class="hidden">
+                            <%= render "shared/icons/spinner", class_name: "h-4 w-4 animate-spin" %>
+                        </span>
+                        <span data-task-suggestions-target="label">Sugerir tasks</span>
+                    <% end %>
+                <% end %>
                 <button type="button"
                         class="icon-button"
                         aria-label="Editar lista"

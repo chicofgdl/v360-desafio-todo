@@ -69,6 +69,68 @@ class ListsController < ApplicationController
         redirect_to lists_path, notice: "Lista excluída com sucesso."
     end
 
+    def task_suggestions
+        list = current_user.lists.includes(:tasks).find(params[:id])
+        suggestions = Ai::SuggestTasks.call(list: list)
+
+        created = []
+        existing_titles = list.tasks.pluck(:title).map { |title| title.to_s.strip.downcase }
+
+        Task.transaction do
+            suggestions.each do |title|
+                normalized = title.to_s.strip
+                next if normalized.empty?
+
+                normalized_downcase = normalized.downcase
+                next if existing_titles.include?(normalized_downcase)
+
+                task = list.tasks.create(title: normalized)
+                next unless task.persisted?
+
+                created << task
+                existing_titles << normalized_downcase
+            end
+        end
+
+        list.reload
+
+        respond_to do |format|
+            format.turbo_stream do
+                streams = []
+                if created.any?
+                    streams << turbo_stream.replace(
+                        view_context.dom_id(list),
+                        partial: "lists/list",
+                        locals: { list: list, sortable: true, show_suggestions: true }
+                    )
+
+                    message = if created.size == 1
+                        "1 sugestao adicionada."
+                    else
+                        "#{created.size} sugestoes adicionadas."
+                    end
+                    streams << toast_stream(message, type: "success")
+                else
+                    streams << toast_stream("Nada novo para sugerir.", type: "info")
+                end
+
+                render turbo_stream: streams
+            end
+
+            format.html do
+                notice = created.any? ? "Sugestoes geradas com sucesso." : "Nada novo para sugerir."
+                redirect_to lists_path, notice: notice
+            end
+        end
+    rescue Ai::SuggestTasks::Error => e
+        respond_to do |format|
+            format.turbo_stream do
+                render turbo_stream: toast_stream("Nao foi possivel gerar sugestoes: #{e.message}")
+            end
+            format.html { redirect_to lists_path, alert: "Erro ao gerar sugestoes." }
+        end
+    end
+
     private
 
     def set_list
