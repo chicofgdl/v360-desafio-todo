@@ -6,6 +6,41 @@ Implementação de uma To-do list.
 
 ---
 
+## Demo
+
+Deploy: https://v360-desafio-todo.onrender.com
+
+## GitHub Projects
+
+Projeto: https://github.com/users/chicofgdl/projects/3
+
+## Sumário
+
+- [Demo](#demo)
+- [GitHub Projects](#github-projects)
+- [Principais funcionalidades](#principais-funcionalidades)
+- [Stack](#stack)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Estrutura de pastas](#estrutura-de-pastas)
+- [Icones](#icones)
+- [Pré-requisitos](#pré-requisitos)
+- [Setup Local](#setup-local)
+- [Autenticação e Autorização](#autenticação-e-autorização)
+- [IA - Sugestão de tasks](#ia---sugestão-de-tasks)
+- [Banco de Dados](#banco-de-dados)
+- [Testes](#testes)
+- [User Stories](#user-stories)
+- [Fluxo de Trabalho (Issues, Branches, Commits e PRs)](#fluxo-de-trabalho-issues-branches-commits-e-prs)
+- [Autor](#autor)
+
+## Principais funcionalidades
+
+- Autenticação com Devise (cadastro, login e recuperação de senha).
+- Listas por usuário com criação, edição, exclusão e validação de títulos únicos.
+- Tasks com conclusão, favoritos, data de vencimento e drag and drop para reordenação.
+- Filtros (hoje, em breve, atrasadas, favoritas) e busca por listas/tarefas.
+- Sugestões de tasks com IA por lista, evitando duplicadas.
+
 ## Stack
 
 - **Ruby**: 3.4.8  
@@ -68,6 +103,8 @@ Exemplos:
 
 ## Setup Local
 
+Antes de subir a aplicação, configure as variáveis em `.env` (veja `.env.example`).
+
 ```bash
 # Instalar dependências
 bundle install
@@ -82,9 +119,8 @@ rails s
 
 ## Banco de Dados
 
-Development / Test: SQLite
-
-Production: PostgreSQL (a definir)
+- Development / Test: SQLite
+- Production: SQLite (padrão no `config/database.yml`, ajustável conforme infraestrutura)
 
 ## Testes
 
@@ -94,13 +130,25 @@ Estratégia de testes (ex: RSpec / Minitest) será definida em versões futuras.
 
 ## Autenticação e Autorização
 
-⚠️ Ainda não implementado
+- Devise com cadastro, login, recuperação de senha e sessão persistente.
+- Escopo por usuário: listas e tarefas ficam vinculadas ao usuário autenticado.
+- Em desenvolvimento, o app cria e autentica automaticamente `dev@example.com` (senha `password`).
 
-Planejado:
+## IA - Sugestão de tasks
 
-Autenticação de usuários
+A geração de tasks usa a OpenAI para sugerir itens com base no título da lista e no contexto atual.
 
-Controle de permissões por recurso
+Como usar na interface:
+
+1. Abra uma lista.
+2. Clique em **Sugerir tasks** para gerar sugestões.
+3. As sugestões são inseridas na lista e duplicadas são ignoradas.
+
+Configuração:
+
+- `OPENAI_API_KEY` (obrigatória)
+- `AI_SUGGEST_MOCK=true` para rodar sem API (gera sugestões locais)
+- Opcionais: `AI_SUGGEST_MODEL`, `AI_SUGGEST_TEMPERATURE`, `AI_SUGGEST_MAX`, `AI_SUGGEST_CONTEXT_MAX`, `AI_SUGGEST_TIMEOUT`
 
 ## User Stories
 #### Épico: Gerenciamento de Listas
