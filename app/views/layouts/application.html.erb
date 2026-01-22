@@ -23,8 +23,9 @@
   </head>
 
   <body data-theme="red" data-controller="modal list-modal task-modal">
-    <%= render "shared/navbar" %>
-    <main class="container mx-auto mt-8 px-5 flex">
+    <% is_auth_page = devise_controller? %>
+    <%= render "shared/navbar" unless is_auth_page %>
+    <main class="<%= is_auth_page ? "min-h-screen flex items-center justify-center px-5 py-10" : "container mx-auto mt-8 px-5 flex" %>">
       <%= yield %>
     </main>
     <div id="toast-region">
